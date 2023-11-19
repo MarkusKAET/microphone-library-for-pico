@@ -12,18 +12,24 @@
  * https://github.com/hathach/tinyusb/tree/master/examples/device/audio_test
  */
 
-#include "pico/pdm_microphone.h"
-
+#include "pico/stdlib.h"
+#include "pico/analog_microphone.h"
 #include "usb_microphone.h"
 
+
 // configuration
-const struct pdm_microphone_config config = {
-  .gpio_data = 2,
-  .gpio_clk = 3,
-  .pio = pio0,
-  .pio_sm = 0,
-  .sample_rate = SAMPLE_RATE,
-  .sample_buffer_size = SAMPLE_BUFFER_SIZE,
+const struct analog_microphone_config config = {
+    // GPIO to use for input, must be ADC compatible (GPIO 26 - 28)
+    .gpio = 26,
+
+    // bias voltage of microphone in volts
+    .bias_voltage = 1.25,
+
+    // sample rate in Hz
+    .sample_rate = 8000,
+
+    // number of samples to buffer
+    .sample_buffer_size = 256,
 };
 
 // variables
@@ -36,9 +42,9 @@ void on_usb_microphone_tx_ready();
 int main(void)
 {
   // initialize and start the PDM microphone
-  pdm_microphone_init(&config);
-  pdm_microphone_set_samples_ready_handler(on_analog_samples_ready);
-  pdm_microphone_start();
+  analog_microphone_init(&config);
+  analog_microphone_set_samples_ready_handler(on_analog_samples_ready);
+  analog_microphone_start();
 
   // initialize the USB microphone interface
   usb_microphone_init();
@@ -58,7 +64,7 @@ void on_analog_samples_ready()
   // internal sample buffer are ready for reading.
   //
   // Read new samples into local buffer.
-  pdm_microphone_read(sample_buffer, SAMPLE_BUFFER_SIZE);
+  analog_microphone_read(sample_buffer, SAMPLE_BUFFER_SIZE);
 }
 
 void on_usb_microphone_tx_ready()
