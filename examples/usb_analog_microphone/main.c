@@ -26,10 +26,10 @@ const struct analog_microphone_config config = {
     .bias_voltage = 1.25,
 
     // sample rate in Hz
-    .sample_rate = 8000,
+    .sample_rate = SAMPLE_RATE,
 
     // number of samples to buffer
-    .sample_buffer_size = 256,
+    .sample_buffer_size = SAMPLE_BUFFER_SIZE,
 };
 
 // variables
