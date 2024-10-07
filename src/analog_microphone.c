@@ -191,11 +191,12 @@ int analog_microphone_read(int16_t* buffer, size_t samples) {
     uint16_t* in = analog_mic.raw_buffer[analog_mic.raw_buffer_read_index];
     int16_t* out = buffer;
     int16_t bias = analog_mic.bias;
+    int16_t gain = analog_mic.config.gain;
 
     analog_mic.raw_buffer_read_index++;
 
     for (int i = 0; i < samples; i++) {
-        *out++ = *in++ - bias;
+        *out++ = (*in++ - bias) * gain;
     }
 
     return samples;

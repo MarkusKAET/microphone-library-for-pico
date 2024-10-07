@@ -19,6 +19,7 @@ struct analog_microphone_config {
     float bias_voltage;
     uint sample_rate;
     uint sample_buffer_size;
+    uint gain;
 };
 
 int analog_microphone_init(const struct analog_microphone_config* config);

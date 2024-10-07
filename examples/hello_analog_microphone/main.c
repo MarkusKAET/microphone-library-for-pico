@@ -28,6 +28,9 @@ const struct analog_microphone_config config = {
 
     // number of samples to buffer
     .sample_buffer_size = 256,
+
+    // signal strength
+    .gain = 10,
 };
 
 // variables

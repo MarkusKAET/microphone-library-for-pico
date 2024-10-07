@@ -25,11 +25,14 @@ const struct analog_microphone_config config = {
     // bias voltage of microphone in volts
     .bias_voltage = 1.25,
 
-    // sample rate in Hz
+    // sample rate in Hz (This should be 16KHz)
     .sample_rate = SAMPLE_RATE,
 
     // number of samples to buffer
     .sample_buffer_size = SAMPLE_BUFFER_SIZE,
+
+    // signal strength multiplied by gain
+    .gain = 10,
 };
 
 // variables
